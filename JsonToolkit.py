@@ -2,7 +2,6 @@ import json
 import os
 from PyQt5 import QtWidgets, QtGui
 import ntpath
-import os
 
 
 def GetJsonAsDict(_Location):
