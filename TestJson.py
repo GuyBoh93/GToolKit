@@ -1,6 +1,6 @@
-from GUIFromDict import DictToWidgetElement
 from PyQt5 import QtWidgets
 import sys
+from toolKit.JsonDict.GUIFromDict import DictToWidgetElement
 
 
 class MainWindow(QtWidgets.QDialog):
@@ -16,8 +16,6 @@ class MainWindow(QtWidgets.QDialog):
         self.rootLayout = QtWidgets.QVBoxLayout()
         self.setLayout(self.rootLayout)
         self.rootLayout.addLayout(widget.GetGUILayout())
-
-        
 
         self.show()
 
