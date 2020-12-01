@@ -490,22 +490,18 @@ class DictToWidgetElement(jsonBase):
                 pass
 
     # Updates All existing UI With With new json With the same name. Just pass though the new folder Location
-    def UpdateCurrentUIWithNewJsonValuse(self, _folderPath):
-
-        _newJsonPath = _folderPath + os.sep + self.GetKey()
-        if os.path.exists(_newJsonPath):
+    def UpdateCurrentUIWithNewJsonValuse(self, _data):
             # remove current settings
             for _key in self.ChildObjects:
                 self.ChildObjects[_key].__del__()
 
             self.ChildObjects.clear()
 
-            _newData = JsonToolKit.GetJsonAsDict(_newJsonPath)
+            _newData = _data
             self.SetValue(_newData)
 
             self.MakeUI()
-        else:
-            print("Json File Does Not exist: ", self.GetKey())
+       
 
 
 def IsVector(_strut):
