@@ -12,4 +12,4 @@ while True:
     print (udp.GetLatestMessage())
  
     print (datetime.now() - startTime)
-    time.sleep(5)
+    time.sleep(1)
