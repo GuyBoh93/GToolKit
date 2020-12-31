@@ -21,13 +21,22 @@ def SaveDictToJson(_saveLocation, _fileName, _jsonData):
 
     print("Json Saved to: " + _saveLocation + os.sep + _fileName)
 
+def SaveDictToJsonFullPath(_fullPath, _jsonData):
+    _file = open(str(_fullPath), "w", encoding="utf-8")
+    json.dump(_jsonData, _file, indent=4)
+
+    _file.close()
+    print(_fullPath)
+
+    print("Json Saved to: " + _fullPath)
+
 
 def DictToSting(_dict):
     _string = json.dumps(_dict)
     return _string
 
 
-def GetAllJsonPathsCalled(self, _path, _fileName):
+def GetAllJsonPathsCalled(_path, _fileName):
     filesPaths = []
 
     for (dirpath, dirnames, filenames) in os.walk(_path):
@@ -46,3 +55,6 @@ def GetAllJsonPaths(self, _path):
                 filesPaths.append(dirpath + os.sep + fineName)
 
     return filesPaths
+
+
+

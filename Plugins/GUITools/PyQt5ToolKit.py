@@ -8,8 +8,8 @@ class GUIBase():
     def __init__(self):
         self.rootLayout = QtWidgets.QHBoxLayout()
 
-    def __del__ (self):
-        DelLayout(self.rootLayout)
+    # def __del__ (self):
+    #     DelLayout(self.rootLayout)
 
     def SetRootLayoutType(self, _layoutType):
         self.rootLayout = _layoutType
