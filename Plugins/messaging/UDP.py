@@ -13,11 +13,9 @@ class UDPServer():
         self.sock = socket.socket(socket.AF_INET,  # Internet
                                   socket.SOCK_DGRAM)  # UDP
 
-        # self.sock.bind((self.port, self.ip))
-
-        def __del__(self):
-            self.sock.close()
-            print('Socket Clouded')
+    def __del__(self):
+        self.sock.close()
+        print('Socket Clouded')
 
     def SendMessage(self, data=["Hello World"]):
         message = self._packMessage(data)
@@ -26,7 +24,7 @@ class UDPServer():
         self.sock.sendto(message, (self.ip, self.port))
 
     def _packMessage(self, messages=[]):
-        # Added Star Messsgae and Time Stamp
+
         strMessage = self.messageFrom + self.prefix
         strMessage += str(datetime.now()) + self.prefix
 
@@ -45,23 +43,6 @@ class UDPClient():
 
         self.sock.bind((self.ip, self.port))
         self.sock.setblocking(0)
-
-    # ##########WIP#################
-
-    #     while True:
-    #         # try:
-    #         #     data, addr = self.sock.recvfrom(
-    #         #         1024)  # buffer size is 1024 bytes
-    #         #     print("received message: %s" % data)
-    #         # except BlockingIOError:
-    #         #     print("Nothing")
-    #         print (str(datetime.now()))
-    #         # messages = self.GetAllMessages()
-    #         print (self.GetLatestMessage())
-    #         # for meg in messages:
-    #         #     print(meg)
-    #         # print(self.GetAllMessages())
-    #         time.sleep(5)
 
     def FlushPort(self):
         self.GetAllMessages()
