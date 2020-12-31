@@ -5,7 +5,7 @@ import select
 
 
 class UDPServer():
-    def __init__(self, ip="127.0.0.1", port=5005, prefix="---", messageFrom="GB"):
+    def __init__(self, ip="localhost", port=5005, prefix="---", messageFrom="GB"):
         self.port = port
         self.ip = ip
         self.prefix = str(prefix)
