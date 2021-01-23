@@ -11,7 +11,8 @@ class UDPServer():
         self.prefix = str(prefix)
         self.messageFrom = str(messageFrom)
         self.sock = socket.socket(socket.AF_INET,  # Internet
-                                  socket.SOCK_DGRAM)  # UDP
+                                  socket.SOCK_DGRAM, socket.IPPROTO_UDP)  # UDP
+        # self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
 
         self.sock.settimeout(0.2)
 
@@ -41,7 +42,8 @@ class UDPClient():
         self.port = port
         self.ip = ip
         self.sock = socket.socket(socket.AF_INET,  # Internet
-                                  socket.SOCK_DGRAM)  # UDP
+                                  socket.SOCK_DGRAM, socket.IPPROTO_UDP)  # UDP
+        # self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
 
         self.sock.bind((self.ip, self.port))
         self.sock.setblocking(0)
@@ -112,7 +114,7 @@ if __name__ == "__main__":
     x = UDPBroacasting(port=37020)
 
     while True:
-        x.BrocastMessgae()
+        # x.BrocastMessgae()
         msg = x.GetAllMessages()
         for i in msg:
             print(i)
