@@ -13,6 +13,8 @@ class UDPServer():
         self.sock = socket.socket(socket.AF_INET,  # Internet
                                   socket.SOCK_DGRAM)  # UDP
 
+        self.sock.settimeout(0.2)
+
     def __del__(self):
         self.sock.close()
         print('Socket Clouded')
@@ -44,6 +46,10 @@ class UDPClient():
         self.sock.bind((self.ip, self.port))
         self.sock.setblocking(0)
 
+    def __del__(self):
+        self.sock.close()
+        print('Socket Clouded')
+
     def FlushPort(self):
         self.GetAllMessages()
 
@@ -68,3 +74,47 @@ class UDPClient():
                 break
 
         return data
+
+
+class UDPSender(UDPServer):
+    pass
+
+
+class UDPReciver(UDPClient):
+    pass
+
+
+class UDPBroacasting():
+    def __init__(self, port=5005, prefix="---", messageFrom="GB"):
+        self.sender = UDPSender(
+            ip="<broadcast>", port=port, prefix=prefix, messageFrom=messageFrom)
+        self.sender.sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+        self.reciver = UDPReciver(ip="", port=port, prefix=prefix)
+        self.reciver.sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+
+    def BrocastMessgae(self, data=["Hello World"]):
+        self.sender.SendMessage(data)
+
+    def SendMessgae(self, data=["Hello World"]):
+        self.sender.SendMessage(data)
+
+    def GetAllMessages(self):
+        return self.reciver.GetAllMessages()
+
+    def GetLatestMessage(self):
+        return self.reciver.GetLatestMessage()
+
+    def FlushPort(self):
+        self.reciver.FlushPort()
+
+
+if __name__ == "__main__":
+    x = UDPBroacasting(port=37020)
+
+    while True:
+        x.BrocastMessgae()
+        msg = x.GetAllMessages()
+        for i in msg:
+            print(i)
+        print("*")
+        time.sleep(3)
