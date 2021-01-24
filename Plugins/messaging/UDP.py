@@ -11,10 +11,11 @@ class UDPServer():
         self.prefix = str(prefix)
         self.messageFrom = str(messageFrom)
         self.sock = socket.socket(socket.AF_INET,  # Internet
-                                  socket.SOCK_DGRAM, socket.IPPROTO_UDP)  # UDP
+                                  socket.SOCK_DGRAM)  # UDP
         # self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
+       
 
-        self.sock.settimeout(0.2)
+        # self.sock.settimeout(0.2)
 
     def __del__(self):
         self.sock.close()
@@ -38,11 +39,13 @@ class UDPServer():
 
 
 class UDPClient():
-    def __init__(self, ip="localhost", port=5005, prefix="---"):
+    def __init__(self, ip="localhost", port=5005, prefix="---", messageFrom="GB"):
         self.port = port
         self.ip = ip
+        self.messageFrom = messageFrom
+        self.prefix = prefix
         self.sock = socket.socket(socket.AF_INET,  # Internet
-                                  socket.SOCK_DGRAM, socket.IPPROTO_UDP)  # UDP
+                                  socket.SOCK_DGRAM)  # UDP
         # self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEPORT, 1)
 
         self.sock.bind((self.ip, self.port))
@@ -71,7 +74,10 @@ class UDPClient():
             try:
                 meg, addr = self.sock.recvfrom(
                     1024)  # buffer size is 1024 bytes
-                data.append(meg)
+                meg = str(meg, 'UTF-8')
+                splitmessage = meg.split(self.prefix)
+                if str(splitmessage[0]) in self.messageFrom:
+                    data.append(meg)
             except BlockingIOError:
                 break
 
@@ -87,12 +93,13 @@ class UDPReciver(UDPClient):
 
 
 class UDPBroacasting():
-    def __init__(self, port=5005, prefix="---", messageFrom="GB"):
+    def __init__(self, port=9, prefix="---", messageFrom="GB"):
         self.sender = UDPSender(
-            ip="<broadcast>", port=port, prefix=prefix, messageFrom=messageFrom)
+            ip="192.168.0.255", port=port, prefix=prefix, messageFrom=messageFrom)
         self.sender.sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
-        self.reciver = UDPReciver(ip="", port=port, prefix=prefix)
-        self.reciver.sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
+        # self.reciver = UDPReciver(
+        #     ip="", port=port, prefix=prefix, messageFrom=messageFrom)
+        # self.reciver.sock.setsockopt(socket.SOL_SOCKET, socket.SO_BROADCAST, 1)
 
     def BrocastMessgae(self, data=["Hello World"]):
         self.sender.SendMessage(data)
@@ -111,12 +118,13 @@ class UDPBroacasting():
 
 
 if __name__ == "__main__":
-    x = UDPBroacasting(port=37020)
+    x = UDPBroacasting()
 
     while True:
-        # x.BrocastMessgae()
-        msg = x.GetAllMessages()
-        for i in msg:
-            print(i)
+        x.SendMessgae()
+        # mesg = x.GetAllMessages()
+
+        # for i in mesg:
+        #     print(i)
         print("*")
-        time.sleep(3)
+        time.sleep(2)
