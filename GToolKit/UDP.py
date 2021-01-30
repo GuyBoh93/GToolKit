@@ -1,7 +1,6 @@
 import socket
 import time
 from datetime import datetime
-import select
 
 
 class UDPServer():

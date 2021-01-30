@@ -1,12 +1,17 @@
-#!/usr/bin/env python
+import setuptools
 
-from distutils.core import setup
+with open("README.md", "r", encoding="utf-8") as fh:
+    long_description = fh.read()
 
-setup(name='plugin',
-      version='1.0',
-      description='Tools and PLugins For Guy',
-      author='Guy Boxall',
-      author_email='guy.boxall1@gmail.cpm',
-      url='',
-      packages=['distutils', 'distutils.command'],
-     )
+setuptools.setup(
+    name="GToolKit", # Replace with your own username
+    version="0.0.1",
+    author="Example Author",
+    author_email="author@example.com",
+    description="A small example package",
+    long_description=long_description,
+    long_description_content_type="text/markdown",
+    url="https://github.com/pypa/sampleproject",
+    packages=setuptools.find_packages(),
+    python_requires='>=3.6',
+)
