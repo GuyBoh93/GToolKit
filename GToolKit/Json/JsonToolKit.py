@@ -46,7 +46,7 @@ def GetAllJsonPathsCalled(_path, _fileName):
 
     return filesPaths
 
-def GetAllJsonPaths(self, _path):
+def GetAllJsonPaths(_path):
     filesPaths = []
 
     for (dirpath, dirnames, filenames) in os.walk(_path):
