@@ -3,14 +3,12 @@
 - [Examples](#Examples)
     - [Json Management](#Json-Management)
     - [GUI](#GUI)
+        - [Json To GUI](#Json-To-GUI)
 
 
 # Examples 
 ## Json Management
 ```python
-from GToolKit.Json import JsonToolKit
-
-# get Json in a Path
 from GToolKit.Json import JsonToolKit
 
 locationOfJson = "C:\scripts"
@@ -54,6 +52,41 @@ class MainWindow(QtWidgets.QDialog):
 
         self.show()
 
+
+
+if __name__ == "__main__":
+    app = QtWidgets.QApplication(sys.argv)
+    gui = MainWindow()
+
+    sys.exit(app.exec_())
+```
+
+### Json To GUI
+
+```python
+from GToolKit.Json import GUIFromDict
+from GToolKit.Json import JsonToolKit
+from PyQt5 import QtWidgets, QtGui, QtCore
+import sys
+
+
+class MainWindow(QtWidgets.QDialog):
+    def __init__(self, _parent=None):
+        super(MainWindow, self).__init__(_parent)
+        self.rootlayout = QtWidgets.QVBoxLayout()
+        self.setLayout(self.rootlayout)
+
+        # Json Location
+        self.jsonLocation = "C:\scripts\Home\GToolKit\TestJson.json"
+
+        self.jsonGUIEl = GUIFromDict.JsonToGUIElement(self.jsonLocation)
+
+        self.rootlayout.addLayout(self.jsonGUIEl.GetGUILayout())
+
+        self.show()
+
+    def Save(self):
+        self.jsonGUIEl.SaveJson(self.jsonLocation)
 
 
 if __name__ == "__main__":
