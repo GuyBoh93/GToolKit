@@ -22,6 +22,8 @@ Guy Boxall - guy.boxall1@gmail.com
 
 
 ## WIP Scripts
-  - UDP
+  - UDP.py
     - Broadcasting 
+  - SystemTray.py 
+    -  " Needs to be testing in Full Application "
 

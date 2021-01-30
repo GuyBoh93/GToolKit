@@ -99,7 +99,7 @@ class FloatInputUI(jsonBase):
 
     def SetValue(self, _value):
         jsonBase.SetValue(self, float(_value))
-        self.floatLineEdit.setText(str(self.value))
+        # self.floatLineEdit.setText(str(self.value))
 
 
 class StringInputUI(jsonBase):
