@@ -4,10 +4,8 @@ from PIL import Image
 import os
 dir = os.path.dirname(os.path.realpath(__file__))
 
-currentFile = __file__  # May be 'my_script', or './my_script' or
-# '/home/user/test/my_script.py' depending on exactly how
-# the script was run/loaded.
-realPath = os.path.realpath(currentFile)  # /home/user/test/my_script.py
+currentFile = __file__  
+realPath = os.path.realpath(currentFile)  
 dir = os.path.dirname(realPath)
 
 
